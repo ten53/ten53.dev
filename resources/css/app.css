@@ -4,7 +4,7 @@
 @source '../../storage/framework/views/*.php';
 
 @plugin "daisyui" {
-    themes: dracula --default;
+    themes: abyss --default;
 }
 
 @theme {
