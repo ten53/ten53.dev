@@ -1,6 +1,5 @@
 <x-layout title="Projects">
-    <x-nav />
-    <main>
+    <section>
         <h1>This is my list of projects.</h1>
-    </main>
+    </section>
 </x-layout>

@@ -1,11 +1,11 @@
 <?php
 
+use App\Enum\NoteStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('excerpt')->nullable();
             $table->text('body');
             $table->string('featured_image')->nullable();
-            $table->string('status')->default('draft');
+            $table->string('status')->default(NoteStatus::DRAFT);
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });

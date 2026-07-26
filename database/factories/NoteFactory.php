@@ -18,7 +18,12 @@ class NoteFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->sentence(),
+            'slug' => fake()->slug(),
+            'excerpt' => fake()->sentence(),
+            'body' => fake()->paragraph(),
+            'featured_image' => fake()->image(),
+            'published_at' => fake()->dateTime(),
         ];
     }
 }

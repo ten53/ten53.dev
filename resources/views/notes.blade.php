@@ -1,7 +1,6 @@
 <x-layout title="Notes">
-    <x-nav />
-    <main>
+    <section>
         <h1>This is the notes section.</h1>
-    </main>
+    </section>
 </x-layout>
 
