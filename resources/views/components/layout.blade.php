@@ -19,9 +19,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="min-h-screen bg-base-200 text-base-content antialiased">
+<body class="bg-base-200 text-base-content antialiased">
 
-<div class="relative min-h-screen overflow-hidden">
+<div class="relative flex h-dvh flex-col overflow-hidden">
 
     {{-- Decorative background --}}
     <div
@@ -51,7 +51,7 @@
 
     <x-nav/>
 
-    <main class="relative z-10">
+    <main class="relative z-10 min-h-0 flex-1">
         {{ $slot }}
     </main>
 
