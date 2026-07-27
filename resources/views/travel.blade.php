@@ -11,11 +11,8 @@
             </header>
         </section>
 
-        <section id="webgl-container" class="relative min-h-0 flex-1">
-            <canvas
-                id="webgl"
-                class="absolute inset-0 block h-full w-full"
-            ></canvas>
+        <section id="webgl-container" class="relative min-h-0 flex-1 overflow-hidden">
+            <canvas id="webgl" class="absolute inset-0 block h-full w-full"></canvas>
         </section>
 
     </div>

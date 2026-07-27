@@ -1,106 +1,138 @@
 import * as THREE from 'three'
 
 // ============================================================================
-//*** Scene Setup
+// DOM Elements
 // ============================================================================
 
-// Grab the canvas from the page
+// The container determines how much page space is available.
+// The canvas fills this container.
+const container = document.querySelector('#webgl-container')
 const canvas = document.querySelector('#webgl')
 
-// Create the scene.
-// The scene is the "world" that contains everything we render.
+// Stop here on pages that do not contain the Three.js canvas.
+if (!container || !canvas) {
+    throw new Error('Three.js container or canvas not found.')
+}
+
+// ============================================================================
+// Scene
+// ============================================================================
+
+// The scene contains everything rendered by Three.js.
 const scene = new THREE.Scene()
 
 // ============================================================================
-//*** Camera
+// Camera
 // ============================================================================
 
-// Perspective camera:
-// - fov   = field of view (degrees)
-// - aspect = width / height of the canvas
-// - near/far = clipping planes
+// Start with an aspect ratio of 1.
+// The correct ratio is applied immediately by resizeRenderer().
 const camera = new THREE.PerspectiveCamera(
-    75,
-    canvas.clientWidth / canvas.clientHeight,
-    0.01,
-    100
+    75,   // Field of view
+    1,    // Aspect ratio
+    0.01, // Near clipping plane
+    100   // Far clipping plane
 )
 
-// Move the camera backwards so we can see the origin.
+// Move the camera away from the origin so the cube is visible.
 camera.position.set(0, 0, 3)
 
-// Always point the camera at the center of the scene.
+// Point the camera toward the center of the scene.
 camera.lookAt(0, 0, 0)
 
 scene.add(camera)
 
 // ============================================================================
-//*** Renderer
+// Renderer
 // ============================================================================
 
-// The renderer draws the scene onto our canvas.
+// Use the existing <canvas> element rather than creating a new one.
 const renderer = new THREE.WebGLRenderer({
     canvas,
     antialias: true,
 })
 
-// Match the renderer to the canvas size.
-renderer.setSize(canvas.clientWidth, canvas.clientHeight)
-
-// Limit pixel ratio for performance on Retina displays.
+// Limit the pixel ratio to avoid unnecessary work on high-density screens.
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 // ============================================================================
-//*** Resize Handling
+// Resize Handling
 // ============================================================================
 
-// Keep the renderer and camera in sync when the canvas changes size.
-window.addEventListener('resize', () => {
-    const width = canvas.clientWidth
-    const height = canvas.clientHeight
+function resizeRenderer() {
+    // Read the available size from the container, not the canvas.
+    const width = container.clientWidth
+    const height = container.clientHeight
 
+    // Avoid invalid aspect ratios while the element is hidden or has no size.
+    if (width === 0 || height === 0) {
+        return
+    }
+
+    // Keep the camera projection aligned with the container shape.
     camera.aspect = width / height
     camera.updateProjectionMatrix()
 
+    /*
+     * Resize the drawing buffer.
+     *
+     * Passing false prevents Three.js from writing inline CSS width and height.
+     * CSS remains responsible for the canvas's visible dimensions.
+     */
     renderer.setSize(width, height, false)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
+}
+
+// Observe the actual container.
+// This catches flexbox, grid, sidebar and viewport-driven size changes.
+const resizeObserver = new ResizeObserver(resizeRenderer)
+
+resizeObserver.observe(container)
+
+// Set the correct size before the first rendered frame.
+resizeRenderer()
 
 // ============================================================================
-//*** Objects
+// Object
 // ============================================================================
 
-// Create a simple cube.
-const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial()
-)
+// Geometry defines the cube's shape.
+const geometry = new THREE.BoxGeometry(1, 1, 1)
+
+// Material defines how the cube's surface is drawn.
+const material = new THREE.MeshBasicMaterial()
+
+// A mesh combines geometry and material into a renderable object.
+const cube = new THREE.Mesh(geometry, material)
 
 scene.add(cube)
 
-// Axes Helper
-// Makes it much easier to understand the coordinate system.
-//
-// Red   = X
-// Green = Y
-// Blue  = Z
-//
-// const axesHelper = new THREE.AxesHelper(2)
-// scene.add(axesHelper)
-
 // ============================================================================
-//*** Animation Loop
+// Timer
 // ============================================================================
 
-// This function runs once every frame (~60 fps).
-function animate() {
+// Timer replaces the deprecated THREE.Clock.
+const timer = new THREE.Timer()
 
-    // Example animation.
-    // cube.rotation.y += 0.01
+// ============================================================================
+// Animation Loop
+// ============================================================================
+
+function animate(timestamp) {
+    /*
+     * Timer.update() must run once per frame.
+     * Passing the requestAnimationFrame timestamp keeps it synchronized
+     * with the browser's animation timing.
+     */
+    timer.update(timestamp)
+
+    const elapsedTime = timer.getElapsed()
+
+    // Example animation based on elapsed time.
+    // cube.rotation.y = elapsedTime
 
     renderer.render(scene, camera)
 
     requestAnimationFrame(animate)
 }
 
-animate()
+requestAnimationFrame(animate)
