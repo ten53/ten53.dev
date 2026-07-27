@@ -11,7 +11,11 @@ class Note extends Model
     /** @use HasFactory<\Database\Factories\NoteFactory> */
     use HasFactory;
 
-    protected $casts = [
-        'status' => NoteStatus::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'status' => NoteStatus::class,
+            'published_at' => 'datetime',
+        ];
+    }
 }

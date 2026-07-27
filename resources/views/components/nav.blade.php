@@ -12,13 +12,13 @@
         ],
         [
             'label' => 'Projects',
-            'route' => 'projects.index',
-            'active' => request()->routeIs('projects.*'),
+            'route' => 'project.index',
+            'active' => request()->routeIs('project.*'),
         ],
         [
             'label' => 'Notes',
-            'route' => 'notes.index',
-            'active' => request()->routeIs('notes.*'),
+            'route' => 'note.index',
+            'active' => request()->routeIs('note.*'),
         ],
     ];
 @endphp

@@ -10,4 +10,18 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-foreground: var(--color-base-content);
+
+    --color-card: var(--color-base-300);
+    --color-primary-foreground: var(--color-primary-content);
+
+    --color-border: var(--color-base-300);
+    --color-input: var(--color-base-300);
+
+    --color-muted-foreground: color-mix(
+        in oklab,
+        var(--color-base-content) 60%,
+        transparent
+    );
 }
