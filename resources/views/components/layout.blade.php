@@ -21,7 +21,7 @@
 
 <body class="bg-base-200 text-base-content antialiased">
 
-<div class="relative flex h-dvh flex-col overflow-hidden">
+<div class="relative min-h-screen">
 
     {{-- Decorative background --}}
     <div
@@ -51,7 +51,7 @@
 
     <x-nav/>
 
-    <main class="relative z-10 min-h-0 flex-1">
+    <main class="relative z-10">
         {{ $slot }}
     </main>
 
