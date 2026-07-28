@@ -18,4 +18,9 @@ class Note extends Model
             'published_at' => 'datetime',
         ];
     }
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', NoteStatus::PUBLISHED);
+    }
 }
