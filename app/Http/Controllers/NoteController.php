@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\NoteStatus;
 use App\Models\Note;
 
 class NoteController extends Controller
