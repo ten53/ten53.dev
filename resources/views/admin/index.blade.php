@@ -1,4 +1,4 @@
-<x-layout title="Welcome">
+<x-admin-layout title="Welcome">
 
     <section class="mx-auto flex min-h-[calc(100vh-65px)] max-w-6xl items-center px-6 py-16">
         <div class="max-w-3xl">
@@ -58,4 +58,4 @@
         </div>
     </section>
 
-</x-layout>
+</x-admin-layout>

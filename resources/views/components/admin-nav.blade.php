@@ -2,24 +2,29 @@
     $links = [
         [
             'label' => '🏠 Home',
-            'route' => 'home',
+            'route' => 'admin.home',
             'active' => request()->routeIs('home'),
         ],
         [
             'label' => '🌏 Travel',
-            'route' => 'travel.index',
+            'route' => 'admin.travel.index',
             'active' => request()->routeIs('travel.*'),
         ],
         [
             'label' => '🗓️ Projects',
-            'route' => 'project.index',
+            'route' => 'admin.project.index',
             'active' => request()->routeIs('project.*'),
         ],
         [
             'label' => '📝 Notes',
-            'route' => 'note.index',
+            'route' => 'admin.note.index',
             'active' => request()->routeIs('note.*'),
         ],
+        [
+            'label' => '📊 Dashboard',
+            'route' => 'admin.dashboard',
+            'active' => request()->routeIs('dashboard.*')
+]
     ];
 @endphp
 
@@ -66,13 +71,13 @@
 
         {{-- Status and mobile menu --}}
         <div class="navbar-end gap-2">
-            <div class="hidden items-center gap-2 sm:flex">
-                <span class="status status-success"></span>
-
-                <span class="text-sm text-base-content/60">
-                    Work in progress
-                </span>
-            </div>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button class="text-sm btn btn-ghost">
+                    👋🏽 Logout
+                </button>
+            </form>
 
             {{-- Mobile dropdown --}}
             <div class="dropdown dropdown-end md:hidden">
@@ -124,3 +129,4 @@
         </div>
     </nav>
 </header>
+
