@@ -31,8 +31,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/notes/{note}', [AdminNoteController::class, 'show'])->name('admin.note.show');
 
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-
-    Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout');
 });
 
 // Login
@@ -41,5 +39,8 @@ Route::middleware(['guest'])->group(function () {
 
     Route::post('/login', [SessionController::class, 'store']);
 });
+
+// Logout
+Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth')->name('logout');
 
 

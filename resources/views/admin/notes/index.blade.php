@@ -11,7 +11,7 @@
                     <x-card href="{{ route('admin.note.show', $note) }}">
                         <h3 class="text-foreground text-lg">{{ $note->title }}</h3>
                         <div class="mt-5 line-clamp-3">{{ $note->excerpt }}</div>
-                        <p class="mt-4">{{ $note->published_at->format('F j, Y') }}</p>
+                        <p class="mt-4">{{ $note->published_at?->format('F j, Y') ?? 'Not published' }}</p>
                     </x-card>
                 @empty
                     <x-card>
